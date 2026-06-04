@@ -1,32 +1,32 @@
-CREATE database if not exists hospital;
+CREATE DATABASE IF NOT EXISTS hospital;
 USE hospital;
-CREATE TABLE patients 
-(
-patient_id INT PRIMARY KEY , 
-name VARCHAR(50), 
-age INT , 
-gender VARCHAR(15)
+ 
+CREATE TABLE patients (
+    patient_id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    age INT NOT NULL,
+    gender VARCHAR(15) NOT NULL
 );
-
-CREATE TABLE doctors 
-(doctor_id INT PRIMARY KEY ,
- name VARCHAR(50) ,
- specialization VARCHAR(50)
- );
-
- CREATE TABLE appointments 
- (appointment_id INT PRIMARY KEY , 
- patient_id INT , 
- doctor_id INT , 
- appointmentdate DATE ,
- FOREIGN KEY (patient_id) references patients(patient_id),
-FOREIGN KEY (doctor_id) references doctors(doctor_id)
+ 
+CREATE TABLE doctors (
+    doctor_id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    specialization VARCHAR(50) NOT NULL
 );
-
-CREATE TABLE treatments 
-(treatment_id INT PRIMARY KEY ,
- patient_id INT , 
- diagnosis VARCHAR(100),
- cost DOUBLE ,
- FOREIGN KEY (patient_id) references patients(patient_id)
- );
+ 
+CREATE TABLE appointments (
+    appointment_id INT PRIMARY KEY,
+    patient_id INT NOT NULL,
+    doctor_id INT NOT NULL,
+    appointmentdate DATE NOT NULL,
+    FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
+    FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
+);
+ 
+CREATE TABLE treatments (
+    treatment_id INT PRIMARY KEY,
+    patient_id INT NOT NULL,
+    diagnosis VARCHAR(100) NOT NULL,
+    cost DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
+);
